@@ -27,9 +27,10 @@ class BaseModel:
 
     def __str__(self):
         '''Method that represents the class objects as a string'''
-        t1 = "[" + self.__class__.__name__ + "]"
-        t2 = "(" + self.id + ") " + str(self.__dict__)
-        return (t1 + t2)
+        msg = "[{}] ({}) {}".format(self.__class__.__name__,
+                                    self.id,
+                                    str(self.__dict__))
+        return (msg)
 
     def save(self):
         '''updates the public instance attribute updated_at
