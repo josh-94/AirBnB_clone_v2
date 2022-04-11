@@ -23,6 +23,13 @@ class HBNBCommand(cmd.Cmd):
         try:
             model = models[args[0]]
             obj = model()
+            for param in args[1:]:
+                if '=' not in param:
+                    continue
+                key, value = param.split('=')
+                value = value.replace('_', ' ')
+                if hasattr(obj, key):
+                    setattr(obj, key, eval(value))
             obj.save()
             print(obj.id)
         except KeyError:
