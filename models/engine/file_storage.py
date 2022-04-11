@@ -29,9 +29,13 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    def all(self):
-        '''Returns the dictionary __objects'''
-        return (FileStorage.__objects)
+    def all(self, cls=None):
+        '''Returns dictionary of instances one type of class'''
+        dict_inst = {}
+        for key, value in FileStorage.__objects.items():
+            if cls is None or cls is value.__class__:
+                dict_inst[key] = value
+        return (dict_inst)
 
     def new(self, obj):
         '''Sets in __objects the obj with key
@@ -61,3 +65,9 @@ class FileStorage:
             models_key = v["__class__"]
             model = models[models_key]
             FileStorage.__objects[k] = model(**v)
+
+    def delete(self, obj=None):
+        '''Deletes a object from __object'''
+        if obj is not None:
+            key = obj.__class__.__name__ + '.' + obj.id
+            del FileStorage.__objects[key]
