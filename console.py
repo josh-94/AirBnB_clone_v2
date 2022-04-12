@@ -83,9 +83,9 @@ class HBNBCommand(cmd.Cmd):
         """Prints all string representation\n"""
         args = line.split()
         argc = len(args)
-        dict_obj = storage.all()
         list_str = []
         if argc == 0:
+            dict_obj = storage.all()
             for v in dict_obj.values():
                 list_str.append(str(v))
             print(list_str)
@@ -94,6 +94,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
+        dict_obj = storage.all(args[0])
         for k, v in dict_obj.items():
             if args[0] in k:
                 list_str.append(str(v))
