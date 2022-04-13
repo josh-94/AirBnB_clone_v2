@@ -39,9 +39,12 @@ class BaseModel:
     def __str__(self):
         '''Method that represents the class object as a string'''
 
+        dict_attr = self.__dict__.copy()
+        if '_sa_instance_state' in dict_attr:
+            del dict_attr['_sa_instance_state']
         msg = "[{}] ({}) {}".format(self.__class__.__name__,
                                     self.id,
-                                    str(self.__dict__))
+                                    str(dict_attr))
         return (msg)
 
     def save(self):
