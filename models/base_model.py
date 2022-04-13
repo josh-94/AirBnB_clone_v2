@@ -38,9 +38,6 @@ class BaseModel:
     def __str__(self):
         '''Method that represents the class object as a string'''
 
-        if self.__dict__['_sa_instance_state'] is not None:
-            del self.__dict__['_sa_instance_state']
-
         msg = "[{}] ({}) {}".format(self.__class__.__name__,
                                     self.id,
                                     str(self.__dict__))
@@ -62,6 +59,8 @@ class BaseModel:
             else:
                 dic[key] = value
         dic["__class__"] = self.__class__.__name__
+        if '_sa_instance_state' in dic:
+            del dic['_sa_instance_state']
         return (dic)
 
     def delete(self):
