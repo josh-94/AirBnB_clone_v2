@@ -33,7 +33,7 @@ class FileStorage:
         '''Returns dictionary of instances one type of class'''
         dict_inst = {}
         for key, value in FileStorage.__objects.items():
-            if cls is None or cls is value.__class__:
+            if cls is None or eval(cls) is value.__class__:
                 dict_inst[key] = value
         return (dict_inst)
 
