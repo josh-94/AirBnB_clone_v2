@@ -2,6 +2,7 @@
 
 '''File with the class State'''
 from os import getenv
+import models
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
@@ -21,4 +22,9 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
-            return (0)
+            cities = models.storage.all('City')
+            list_city = []
+            for city in cities.values():
+                if city.state_id == self.id:
+                    list_city.append(city)
+            return (list_city)
