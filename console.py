@@ -74,7 +74,7 @@ class HBNBCommand(cmd.Cmd):
         dict_obj = storage.all()
         key = args[0] + "." + args[1]
         try:
-            del dict_obj[key]
+            storage.delete(dict_obj[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
@@ -95,9 +95,8 @@ class HBNBCommand(cmd.Cmd):
             return
 
         dict_obj = storage.all(args[0])
-        for k, v in dict_obj.items():
-            if args[0] in k:
-                list_str.append(str(v))
+        for v in dict_obj.values():
+            list_str.append(str(v))
         print(list_str)
 
     def do_count(self, line):
