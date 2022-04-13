@@ -1,8 +1,13 @@
 #!/usr/bin/python3
 
 '''File with the class Place'''
+import models
+from os import getenv
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship
+
+storage = getenv('HBNB_TYPE_STORAGE')
 
 
 class Place(BaseModel, Base):
@@ -20,3 +25,15 @@ class Place(BaseModel, Base):
     latitude = Column(Float(), nullable=True, default=0.000)
     longitude = Column(Float(), nullable=True, default=0.000)
     amenity_ids = []
+
+    reviews = relationship('Review', backref='place')
+
+    if storage != 'db':
+        @property
+        def reviews(self):
+            reviews = models.storage.all('Review')
+            list_review = []
+            for review in reviews.values():
+                if review.place_id == self.id:
+                    list_review.append(review)
+            return (list_review)
