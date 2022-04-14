@@ -4,10 +4,19 @@
 import models
 from os import getenv
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy import Table, Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 
 storage = getenv('HBNB_TYPE_STORAGE')
+
+place_amenity = Table('place_amenity', Base.metadata,
+                      Column('place_id', String(60),
+                             ForeignKey('places.id'),
+                             primary_key=True),
+                      Column('amenity_id', String(60),
+                             ForeignKey('amenities.id'),
+                             primary_key=True)
+                      )
 
 
 class Place(BaseModel, Base):
@@ -26,6 +35,9 @@ class Place(BaseModel, Base):
     longitude = Column(Float(), nullable=True, default=0.000)
     amenity_ids = []
 
+    amenities = relationship('Amenity',
+                             secondary=place_amenity,
+                             viewonly=False)
     reviews = relationship('Review', backref='place')
 
     if storage != 'db':
@@ -37,3 +49,18 @@ class Place(BaseModel, Base):
                 if review.place_id == self.id:
                     list_review.append(review)
             return (list_review)
+
+        @property
+        def amenities(self):
+            return (self.amenity_ids)
+
+        @amenities.setter
+        def amenities(self, ameni=None):
+            if obj.__class__.__name__ == 'Amenity':
+                self.amenity_ids.append(ameni.id)
+            if self.amenity_ids.count(ameni.id) == 1:
+                dict_obj = models.storage.all("Amenity")
+                for obj in dict_obj.values():
+                    if ameni.id == obj.id:
+                        self.amenity_ids.pop()
+                        break
