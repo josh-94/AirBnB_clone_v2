@@ -12,7 +12,7 @@ sudo chown -R ubuntu:ubuntu /data
 echo "Test my configuration file" > /data/web_static/releases/test/index.html
 
 ## Creates symbolic link
-sym_link="/data/web_static/current"
+sym_link="/data/web_static/current/"
 sudo ln -sf /data/web_static/releases/test/ "$sym_link"
 
 ## Modify the Ngnix configuration file to deploy a web_static
