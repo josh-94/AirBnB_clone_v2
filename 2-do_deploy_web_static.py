@@ -38,11 +38,11 @@ def do_deploy(archive_path):
 
     try:
         # Upload the archive to the servers
-        put(archive_path, '/tmp')
+        put(archive_path, '/tmp/')
 
         # Unpack the archive
         run('mkdir -p ' + path_web_static)
-        run('tar -xzf /tmp/{} -C {}'.format(archive, path_web_static))
+        run('tar -xzf /tmp/{} -C {}/'.format(archive, path_web_static))
         run('rm /tmp/{}'.format(archive))
 
         # Deletes the unpacked main directory
