@@ -52,5 +52,7 @@ def do_deploy(archive_path):
         # Configures the symbolic link
         run('rm -rf ' + sym_link)
         run('ln -s {} {}'.format(path_web_static, sym_link))
+
+        return True
     except Exception:
         return False
