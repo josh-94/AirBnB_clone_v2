@@ -8,12 +8,14 @@ sudo apt install -y nginx
 ## Creates the folders and index.html
 sudo mkdir -p /data/web_static/{releases,shared}
 sudo mkdir -p /data/web_static/releases/test
-sudo chown -R ubuntu:ubuntu /data
-echo "Test my configuration file" > /data/web_static/releases/test/index.html
+echo "Test my configuration file" | sudo tee /data/web_static/releases/test/index.html
 
 ## Creates symbolic link
 sym_link="/data/web_static/current"
 sudo ln -sf /data/web_static/releases/test/ "$sym_link"
+
+## Give ownership of the /data/ folder
+sudo chown -R ubuntu:ubuntu /data
 
 ## Modify the Ngnix configuration file to deploy a web_static
 location_block="\n\tlocation /hbnb_static/ {\n\t\talias $sym_link/;\n\t}"
