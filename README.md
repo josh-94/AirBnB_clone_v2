@@ -12,7 +12,7 @@ With this command interpreter you can:
 * store and persist objects to a file (JSON file)
 ## How to clone
 ```
-git clone https://github.com/humtej1204/AirBnB_clone
+git clone https://github.com/josh-94/AirBnB_clone_2
 ```
 ## Usage
 ```
@@ -70,4 +70,4 @@ $ ./console.py
 ```
 ## Authors
 * Michael Chambilla - [GitHub](https://github.com/Mcfreestyle)
-* Humberto Tejada - [GitHub](https://github.com/humtej1204)
+* Jeshua Cabanillas - [GitHub](https://github.com/josh-94)
