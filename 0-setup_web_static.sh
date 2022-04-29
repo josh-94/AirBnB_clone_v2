@@ -19,6 +19,6 @@ sudo chown -R ubuntu:ubuntu /data
 
 ## Modify the Ngnix configuration file to deploy a web_static
 location_block="\n\tlocation /hbnb_static/ {\n\t\talias $sym_link/;\n\t}"
-sudo sed -i "/server_name _;/ a \\$location_block" /etc/nginx/sites-available/default
+sudo sed -i "/listen 80 default_server;/ a \\$location_block" /etc/nginx/sites-available/default
 
 sudo service nginx restart
